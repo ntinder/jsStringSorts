@@ -57,20 +57,7 @@ function sortAnimalsCharCount()
 
 function sortAnimalsAlphaLastChar()
 {
-	var lastCharAnimals = getAnimalsSortedAlphaA();
-	for(var i=0; i< lastCharAnimals.length; i++)
-	{
-		lastCharAnimals[i] = reverseWord(lastCharAnimals[i]);
-	}
-
-	lastCharAnimals.sort();
-	
-	for(var i=0; i< lastCharAnimals.length; i++)
-	{
-		lastCharAnimals[i] = reverseWord(lastCharAnimals[i]);
-	}
-	
-	animals = lastCharAnimals;
+	animals.sort(lastCharCompare);
 }
 
 function sortAnimalsConsonantCount()
@@ -103,15 +90,6 @@ function charLengthSort(a,b)
 	return a.length - b.length;
 }
 
-function reverseWord(word)
-{
-	if( ( /[^\w\s\-]/ ).test(word) )
-	{
-		console.warn("reverseWord may behave strangely with non-alphabet characters");
-	}
-	return word.split("").reverse().join("");
-}
-
 function vowelCountCompare(a,b)
 {
 	return vowelCount(a) - vowelCount(b);
@@ -121,7 +99,14 @@ function consonantCountCompare(a,b)
 {
 	return consonantCount(a) - consonantCount(b);
 }
-
+function lastCharCompare (a,b)
+{
+	return getLastChar(a) > getLastChar(b);
+}
+function getLastChar(word)
+{
+	return word.slice(-1);
+}
 function vowelCount(word)
 {
 	var vowels = word.match(/[aeiou]/gi);
